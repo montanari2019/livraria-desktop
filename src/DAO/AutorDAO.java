@@ -13,7 +13,7 @@ public class AutorDAO {
 
 
  public AutorDAO() {
-  conexao = new ConnectionFactory().getConnection();
+      conexao = new ConnectionFactory().getConnection();
  }
 
 
@@ -35,8 +35,9 @@ public class AutorDAO {
    throw new RuntimeException(e);
   }
  }
+
  public List<Autor> listar_todos(){
-  String sql = "select * from autores";
+  String sql = "select * from autores order by nome";
   List<Autor> autores = new ArrayList<>();
   try {
    //PREPARAR A CONEXÂO
@@ -47,12 +48,12 @@ public class AutorDAO {
 
    //PERCORRER OS RESULTADOR
    while (resultador.next()){
-    Autor autorr1 = new Autor();
-    autorr1.setId(resultador.getInt("id"));
-    autorr1.setNome(resultador.getString("nome"));
-    autorr1.setEmail(resultador.getString("email"));
+    Autor autor1 = new Autor();
+    autor1.setId(resultador.getInt("id"));
+    autor1.setNome(resultador.getString("nome"));
+    autor1.setEmail(resultador.getString("email"));
 
-    autores.add(autorr1);
+    autores.add(autor1);
    }
 
    //FECHAR CONEXÃO
@@ -64,6 +65,7 @@ public class AutorDAO {
 
   return autores;
  }
+
  public Autor buscar_id(int id){
   String sql = "select * from autores where id = ?";
 
@@ -93,6 +95,7 @@ public class AutorDAO {
   }
 
  }
+
  public void alterar (Autor autor){
   String sql = "update autores set nome = ?, email = ? where id = ?";
   try{
@@ -114,6 +117,7 @@ public class AutorDAO {
    throw  new RuntimeException();
   }
  }
+
  public void deletar (int id){
   String sql = "delete from autores where id = ?";
   try{
@@ -134,5 +138,6 @@ public class AutorDAO {
   }
 
  }
+
 }
 
