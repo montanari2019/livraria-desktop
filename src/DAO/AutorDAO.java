@@ -13,11 +13,15 @@ public class AutorDAO {
 
 
  public AutorDAO() {
-      conexao = new ConnectionFactory().getConnection();
+
+ }
+ public void conectar(){
+  conexao = new ConnectionFactory().getConnection();
  }
 
 
  public void inserir(Autor autor){
+  conectar();
   String sql = "insert into autores (nome, email)" +
           "values (?, ?)";
   try{
@@ -37,7 +41,8 @@ public class AutorDAO {
  }
 
  public List<Autor> listar_todos(){
-  String sql = "select * from autores order by nome";
+  conectar();
+  String sql = "select * from autores order by id";
   List<Autor> autores = new ArrayList<>();
   try {
    //PREPARAR A CONEXÂO
@@ -57,7 +62,7 @@ public class AutorDAO {
    }
 
    //FECHAR CONEXÃO
-   conexao.close();;
+   conexao.close();
 
   }catch (SQLException e){
    throw new RuntimeException();
@@ -67,6 +72,7 @@ public class AutorDAO {
  }
 
  public Autor buscar_id(int id){
+  conectar();
   String sql = "select * from autores where id = ?";
 
   try{
@@ -97,6 +103,7 @@ public class AutorDAO {
  }
 
  public void alterar (Autor autor){
+  conectar();
   String sql = "update autores set nome = ?, email = ? where id = ?";
   try{
    //PREPARANDO CONEXÃO
@@ -119,6 +126,7 @@ public class AutorDAO {
  }
 
  public void deletar (int id){
+  conectar();
   String sql = "delete from autores where id = ?";
   try{
    //PREPARANDO A CONEXÃO
