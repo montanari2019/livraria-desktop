@@ -31,10 +31,13 @@
       <TableView fx:id="tabelaView" layoutX="54.0" layoutY="204.0" prefHeight="388.0" prefWidth="663.0">
         <columns>
           <TableColumn fx:id="tabela_id" prefWidth="141.0" text="ID" />
-          <TableColumn fx:id="tabela_nome" minWidth="0.0" prefWidth="261.0" text="NOME" />
-            <TableColumn fx:id="tabela_email" minWidth="0.0" onEditCommit="#EDITI" prefWidth="261.0" text="EMAIL" />
+          <TableColumn fx:id="tabela_nome" minWidth="0.0" onEditCommit="#EDITI_NOME" prefWidth="261.0" text="NOME" />
+            <TableColumn fx:id="tabela_email" minWidth="0.0" onEditCommit="#EDITI_EMAIL" prefWidth="261.0" text="EMAIL" />
         </columns>
       </TableView>
-      <Button layoutX="665.0" layoutY="617.0" mnemonicParsing="false" onAction="#deletar" text="Button" />
+      <Button layoutX="665.0" layoutY="617.0" mnemonicParsing="false" onAction="#deletar" text="Deletar">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
    </children>
 </AnchorPane>

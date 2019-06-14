@@ -138,9 +138,13 @@ public class AutorFormularioControler implements Initializable {
     };
 
 
-    public void EDITI(TableColumn.CellEditEvent<Autor, String> autorStringCellEditEvent) {
-        autor.setNome(autorStringCellEditEvent.getNewValue());
+    public void EDITI_EMAIL(TableColumn.CellEditEvent<Autor, String> autorStringCellEditEvent) {
         autor.setEmail(autorStringCellEditEvent.getNewValue());
+        autorDao.alterar(autor);
+    }
+
+    public void EDITI_NOME(TableColumn.CellEditEvent<Autor, String> autorStringCellEditEvent) {
+        autor.setNome(autorStringCellEditEvent.getNewValue());
         autorDao.alterar(autor);
     }
 }
