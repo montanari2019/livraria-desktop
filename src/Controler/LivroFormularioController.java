@@ -42,14 +42,14 @@ public class LivroFormularioController implements Initializable {
         return txf_data_lancamento;
     }
 
-    public void  transformar_data_americano{
+    public void  transformar_data_americano (){
         DateFormat format =  new SimpleDateFormat("yyyy/MM/dd");
         txf_data_lancamento = new JFormattedTextField(format);
     }
 
     public void inserir_livro(){
 
-        private Date =  formatar_data();
+        JFormattedTextField data =  formatar_data();
         livros.setTitulo(txf_titulo.getName());
         livros.setQauntidade(Integer.parseInt(txf_qauntidade.getText()));
 
