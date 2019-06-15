@@ -17,7 +17,16 @@ public class Livros_DAO {
         conexao = new ConnectionFactory().getConnection();
     }
 
+    public Livros_DAO() {
+
+    }
+
+    public void conectar(){
+        conexao = new ConnectionFactory().getConnection();
+    }
+
     public void inserir (Livros livros){
+        conectar();
         String sql = "insert into livros (titulo, data_lancamento, quantidade, preco, editora_id)" +
                      "values (?,?,?,?,?)";
         try{
@@ -43,6 +52,7 @@ public class Livros_DAO {
     }
 
     public List<Livros> listar_todos(){
+        conectar();
         String sql = "select * from autores";
         List<Livros>    Livros = new ArrayList<>();
         try {
@@ -77,6 +87,7 @@ public class Livros_DAO {
     }
 
     public Livros buscar_id(int id){
+        conectar();
         String sql = "select * from livros where id = ?";
         try{
             //PREPARANDO A CONEXÃO
@@ -108,6 +119,7 @@ public class Livros_DAO {
     }
 
     public void alterar(Livros livros){
+        conectar();
         String sql = "update livros set titulo = ?, data_lancamento = ?, quantidade = ?, preco = ?, editora_id = ? where id = ?";
         try{
             //PREPARANDO CONEXÃO
@@ -132,6 +144,7 @@ public class Livros_DAO {
     }
 
     public void deletar(int id){
+        conectar();
         String sql = "delete from livros where id = ?";
         try{
             //PREPARANDO A CONEXÃO

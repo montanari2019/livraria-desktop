@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="694.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.AutorFormularioControler">
    <children>
-      <Pane prefHeight="94.0" prefWidth="771.0">
+      <Pane prefHeight="94.0" prefWidth="770.0">
          <children>
             <Label layoutX="270.0" layoutY="35.0" text="Cadastro de Autores">
                <font>
@@ -21,13 +21,13 @@
          </children>
       </Pane>
       <Label layoutX="52.0" layoutY="124.0" text="Nome:" />
+      <TextField fx:id="txfNome" layoutX="110.0" layoutY="121.0" prefHeight="26.0" prefWidth="217.0" />
       <Label layoutX="440.0" layoutY="125.0" text="Email:" />
+      <TextField fx:id="txfEmail" layoutX="500.0" layoutY="121.0" prefHeight="26.0" prefWidth="217.0" />
       <Button fx:id="btn_Inserir_novo" layoutX="555.0" layoutY="162.0" mnemonicParsing="false" onAction="#inserir_novo_autor" prefHeight="26.0" prefWidth="162.0" text="Inserir Novo Autor">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
-      <TextField fx:id="txfNome" layoutX="110.0" layoutY="121.0" prefHeight="26.0" prefWidth="217.0" />
-      <TextField fx:id="txfEmail" layoutX="500.0" layoutY="121.0" prefHeight="26.0" prefWidth="217.0" />
       <TableView fx:id="tabelaView" layoutX="54.0" layoutY="204.0" prefHeight="388.0" prefWidth="663.0">
         <columns>
           <TableColumn fx:id="tabela_id" prefWidth="141.0" text="ID" />
