@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -25,14 +24,13 @@ public class AutorFormularioControler implements Initializable {
 
     @FXML private TextField txfNome;
     @FXML private TextField txfEmail;
-    @FXML private Button btn_Inserir_novo;
+    @FXML private ObservableList <Autor> observableListAutor;
+
     @FXML private TableView <Autor> tabelaView = new TableView<>();
     @FXML private TableColumn <Autor, Integer> tabela_id = new TableColumn<>("id");
     @FXML private TableColumn <Autor, String> tabela_nome = new TableColumn<>("nome");
     @FXML private TableColumn <Autor, String> tabela_email = new TableColumn<>("email");
-    @FXML private ObservableList <Autor> observableListAutor;
-    @FXML private Button btn_deletar_autor;
-    @FXML private Button btn_alterar;
+
 
     private Autor autor = new Autor();
     private AutorDAO autorDao = new AutorDAO();
@@ -98,6 +96,7 @@ public class AutorFormularioControler implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listar_todos();
+
         tabelaView.setOnMouseClicked(item_selecionado);
 
 
@@ -130,7 +129,6 @@ public class AutorFormularioControler implements Initializable {
 
     //EVENTO DE SELECIONAR O CONTEUDO COM O CLICK DO MOUSE
     EventHandler<MouseEvent> item_selecionado = evt -> {
-
 
         //PASSANDO PARA O OBJETO AUTOR PARA SER USADO EM OUTROS METÓDOS
        autor = tabelaView.getSelectionModel().getSelectedItem();
