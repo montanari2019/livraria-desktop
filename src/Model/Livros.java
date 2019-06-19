@@ -7,9 +7,17 @@ public class Livros {
     private int id;
     private String titulo;
     private LocalDate data_lancamento;
-    private int qauntidade;
+    private int quantidade;
     private float preco;
-    private Editora editora_id;
+    private int editora_id;
+
+    public int getEditora_id() {
+        return editora_id;
+    }
+
+    public void setEditora_id(int editora_id) {
+        this.editora_id = editora_id;
+    }
 
     public int getId() {
         return id;
@@ -35,12 +43,12 @@ public class Livros {
         this.data_lancamento = data_lancamento;
     }
 
-    public int getQauntidade() {
-        return qauntidade;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setQauntidade(int qauntidade) {
-        this.qauntidade = qauntidade;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
     public float getPreco() {
@@ -51,12 +59,6 @@ public class Livros {
         this.preco = preco;
     }
 
-    public Editora getEditora_id() {
-        return editora_id;
-    }
 
-    public void setEditora_id(Editora editora_id) {
-        this.editora_id = editora_id;
-    }
 
 }

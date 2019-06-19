@@ -10,15 +10,13 @@ import java.sql.SQLException;
 public class Municipio_DAO {
     private Connection conexao;
 
-    public Municipio_DAO(Connection conexao) {
+    public void conectar() {
         conexao = new ConnectionFactory() .getConnection();
     }
 
-    public Municipio_DAO() {
-
-    }
 
     public void inserir(Municipio municipio){
+        conectar();
         String sql = "insert into Municipio (nome, id_estado" +
                      "values (?, ?)";
 
@@ -41,7 +39,8 @@ public class Municipio_DAO {
     }
 
     public Municipio buscar_id(int id){
-        String sql = "select *from Municipio where id = ?";
+        conectar();
+        String sql = "select * from Municipio where id = ?";
         try{
             //PREPARANDO A CONEXÃO
             PreparedStatement stmt = conexao.prepareStatement(sql);
@@ -54,8 +53,9 @@ public class Municipio_DAO {
 
             //POPULANDO OBJETO
             resul.next();
+            municipio.setId(resul.getInt("id"));
             municipio.setNome(resul.getString("nome"));
-
+            municipio.setEstado(new Estado_DAO().buscar_id(resul.getInt("id_estado")));
             //FECHANOD CONEXÃO
             conexao.close();
             return municipio;
@@ -67,6 +67,7 @@ public class Municipio_DAO {
     }
 
     public void alterar(Municipio municipio){
+        conectar();
         String sql = "update Municipio set nome = ?, where id = ?";
         try{
             //PREPARANDO A CONEXÃO
@@ -88,6 +89,7 @@ public class Municipio_DAO {
     }
 
     public void deletar(int id){
+        conectar();
         String sql = "delete from Municipio where id = ?";
         try{
             //PREPARANDO CONEXÃO

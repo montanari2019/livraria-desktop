@@ -1,26 +1,25 @@
 package Controler;
 
+import DAO.Editora_DAO;
 import DAO.Livros_DAO;
 import Model.Editora;
 import Model.Livros;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
+
 import javafx.scene.control.TextField;
-
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
-import java.awt.*;
 import java.net.URL;
-
-
-
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -37,26 +36,32 @@ public class LivroFormularioController implements Initializable {
     @FXML private TableColumn <Livros ,Integer> colunaQUANTIDADE = new TableColumn<>("quantidade");
     @FXML private TableColumn <Livros ,Float> colunaPRECO = new TableColumn<>("preco");
     @FXML private TableColumn <Livros ,LocalDate> colunaDATA_LANCAMENTO = new TableColumn<>("data lancamento");
-    @FXML private TableColumn <Livros ,String> colunaEDITORA = new TableColumn<>("editora");
+    @FXML private TableColumn <Livros ,String> colunaEDITORA = new TableColumn<>("nome");
 
 
     @FXML private ComboBox<Editora>  caixa_editora  = new ComboBox<>();
-   @FXML private ObservableList observableList_livros;
+   @FXML private ObservableList <Livros> observableList_livros;
 
 
 
 
    private Livros LivroObjetoSelecionado;
-   private  Editora EditoraObjetoSlecionado = caixa_editora.getSelectionModel().getSelectedItem();
+
    private Livros livros = new Livros();
    private Livros_DAO livros_dao = new Livros_DAO();
    private Editora editora = new Editora();
+   private ObservableList <Editora> observableListEditora;
+
+
+
 
 
 
    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       // TableView_listar();
+      TableView_listar();
+      carregar_COMBONBOX();
+
 
     }
 
@@ -64,11 +69,26 @@ public class LivroFormularioController implements Initializable {
     public void inserir_livro(){
 
         livros.setTitulo(titulo02.getText());
-        livros.setQauntidade(Integer.parseInt(quantidade.getText()));
+        livros.setQuantidade(Integer.parseInt(quantidade.getText()));
         livros.setPreco(Float.parseFloat(txf_preco.getText()));
         livros.setData_lancamento(data_lancamento.getValue());
-        livros.setEditora_id(EditoraObjetoSlecionado);
+        livros.setEditora_id(editora.getId());
+        System.out.println("Titulo: " + titulo02.getText());
+        System.out.println("Data Lancamento: " + data_lancamento.getValue());
+        System.out.println("Quantidade: " + quantidade.getText());
+        System.out.println("Preço: " + Float.parseFloat(txf_preco.getText()));
+        System.out.println("Editora: " + editora.getId());
+        limpar_campos();
         livros_dao.inserir(livros);
+        TableView_listar();
+    }
+
+    public void limpar_campos(){
+       titulo02.setText("");
+       quantidade.setText("");
+       txf_preco.setText("");
+       data_lancamento.setValue(null);
+       titulo02.requestFocus();
     }
 
     public void TableView_listar(){
@@ -78,7 +98,9 @@ public class LivroFormularioController implements Initializable {
            colunaTITULO.setCellValueFactory(new PropertyValueFactory<>("titulo"));
            colunaDATA_LANCAMENTO.setCellValueFactory(new PropertyValueFactory<>("data_lancamento"));
            colunaPRECO.setCellValueFactory(new PropertyValueFactory<>("preco"));
-           colunaEDITORA.setCellValueFactory(new PropertyValueFactory<>("editora"));
+
+           //APRENDA ESSA PORRA SEU RETARDADE
+           colunaEDITORA.setCellValueFactory((param) -> new SimpleStringProperty(new Editora_DAO().buscar_id(param.getValue().getEditora_id()).getNome()));
            colunaQUANTIDADE.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
            observableList_livros = FXCollections.observableArrayList(livros_dao.listar_todos());
            System.out.println(livros_dao.listar_todos().size());
@@ -90,6 +112,48 @@ public class LivroFormularioController implements Initializable {
 
     }
 
+    public void carregar_COMBONBOX(){
+        System.out.println(new Editora_DAO().listar_todos().size());
+        caixa_editora.cellFactoryProperty();
+        caixa_editora.setCellFactory(format);
+        caixa_editora.setOnAction(selectEditora);
+        observableListEditora = FXCollections.observableArrayList(new Editora_DAO().listar_todos());
+        caixa_editora.setItems(observableListEditora);
+
+    }
+
+
+   //ALTERAR O NOME COMBONBOX PARA FICAR VISIVEL E ENTENDÍVEL AO USUÁRIO
+    EventHandler<ActionEvent> selectEditora = evt ->{
+        editora = (Editora) caixa_editora.getSelectionModel().getSelectedItem();
+        caixa_editora.setConverter(new StringConverter<Editora>() {
+            @Override
+            public String toString(Editora editora) {
+                return editora.getNome();
+            }
+
+            @Override
+            public Editora fromString(String s) {
+                return null;
+            }
+        });
+    };
+
+
+    //PEGANDO O CONTEUDO DO BANCO QUE ESTA EM EDENREÇO DE MEMORIOA E TRANFORMANDO EM STRING LEGÍVEL
+    private Callback<ListView<Editora>,ListCell<Editora>> format = evt-> {
+       return new ListCell<>(){
+           protected void updateItem(Editora item, boolean empty){
+               super.updateItem(item,empty);{
+                   if(item==null||empty){
+                       setGraphic(null);
+                   }else{
+                       setText(item.getNome());
+                   }
+               }
+           }
+       };
+ };
 
 
 

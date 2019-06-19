@@ -2,7 +2,7 @@ package DAO;
 
 import Model.Editora;
 import Model.Municipio;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,11 +14,12 @@ import java.util.List;
 public class Editora_DAO {
     private Connection conexao;
 
-    public Editora_DAO() {
+    public void conectar() {
         conexao = new ConnectionFactory().getConnection();
     }
 
     public void inserir(Editora editora){
+        conectar();
         String sql = "insert into editoras (nome, site, bairro, endereco, telefone, id_municipio)" +
                       "values (?, ?, ?, ?, ?, ?)";
         try{
@@ -46,6 +47,7 @@ public class Editora_DAO {
     }
 
     public void alterar(Editora editora){
+        conectar();
         String sql = "update editora set nome = ?, site = ?, bairro = ?, endereco = ?, telefone = ?, id_municipio = ? where id = ?";
         try{
             //PREPARANDO CONEXÃO
@@ -72,7 +74,8 @@ public class Editora_DAO {
     }
 
     public Editora buscar_id(int id){
-        String sql = "select * from autores where id = ?";
+        conectar();
+        String sql = "select * from editoras where id = ?";
 
         try{
             //PREPARAR A CONEXÃO
@@ -108,8 +111,8 @@ public class Editora_DAO {
     }
 
     public List<Editora> listar_todos(){
-        String sql = "select *from editoras" +
-                     "order by nome";
+        conectar();
+        String sql = "select *from editoras";
         List<Editora> editoras = new ArrayList<>();
         try {
             //PREPARAR A CONEXÂO
@@ -143,6 +146,7 @@ public class Editora_DAO {
     }
 
     public void deletar(int id){
+        conectar();
         String sql = "delete from editoras where id = ?";
         try{
             //PREPARANDO A CONEXÃO

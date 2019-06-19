@@ -1,8 +1,6 @@
 package DAO;
 
-import Model.Editora;
 import Model.Livros;
-import com.sun.prism.shader.DrawCircle_LinearGradient_REFLECT_AlphaTest_Loader;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -27,7 +25,7 @@ public class Livros_DAO {
 
     public void inserir (Livros livros){
         conectar();
-        String sql = "insert into livros (titulo, data_lancamento, quantidade, preco, editora_id)" +
+        String sql = "insert into livros (titulo, data_lancamento, quantidade, preco, editoras_id)" +
                      "values (?,?,?,?,?)";
         try{
             //PREPARANDO CONEXÃO
@@ -35,9 +33,9 @@ public class Livros_DAO {
 
             stmt.setString(1, livros.getTitulo());
             stmt.setDate(2, Date.valueOf(livros.getData_lancamento()));
-            stmt.setInt(3, livros.getQauntidade());
+            stmt.setInt(3, livros.getQuantidade());
             stmt.setFloat(4, livros.getPreco());
-            stmt.setInt(5, livros.getEditora_id().getId());
+            stmt.setInt(5, livros.getEditora_id());
 
             //EXECUTANDO
             stmt.execute();
@@ -53,7 +51,7 @@ public class Livros_DAO {
 
     public List<Livros> listar_todos(){
         conectar();
-        String sql = "select * from autores";
+        String sql = "select * from livros";
         List<Livros>    Livros = new ArrayList<>();
         try {
             //PREPARAR A CONEXÂO
@@ -67,10 +65,10 @@ public class Livros_DAO {
                 Livros livros = new Livros();
                 livros.setId(resultado.getInt("id"));
                 livros.setTitulo(resultado.getString("titulo"));
-                livros.setData_lancamento(LocalDate.parse(resultado.getDate("data_lacamento").toString()));
+                livros.setData_lancamento(LocalDate.parse(resultado.getDate("data_lancamento").toString()));
                 livros.setPreco(resultado.getFloat("preco"));
-                livros.setQauntidade(resultado.getInt("Quantidade"));
-                livros.setEditora_id(new Editora_DAO().buscar_id(resultado.getInt("editora_id")));
+                livros.setQuantidade(resultado.getInt("quantidade"));
+                livros.setEditora_id(resultado.getInt("editoras_id"));
 
                 Livros.add(livros);
 
@@ -80,6 +78,7 @@ public class Livros_DAO {
             conexao.close();;
 
         }catch (SQLException e){
+            System.out.println(e);
             throw new RuntimeException();
         }
 
@@ -105,8 +104,8 @@ public class Livros_DAO {
             livros.setTitulo(resultado.getString("titulo"));
             livros.setData_lancamento(LocalDate.parse(resultado.getDate("data_lacamento").toString()));
             livros.setPreco(resultado.getFloat("preco"));
-            livros.setQauntidade(resultado.getInt("Quantidade"));
-            livros.setEditora_id(new Editora_DAO().buscar_id(resultado.getInt("editora_id")));
+            livros.setQuantidade(resultado.getInt("quantidade"));
+            livros.setEditora_id(resultado.getInt("editoras_id"));
 
             //FECHANOD CONEXÃO
             conexao.close();
@@ -127,9 +126,9 @@ public class Livros_DAO {
 
             stmt.setString(1, livros.getTitulo());
             stmt.setDate(2, Date.valueOf(livros.getData_lancamento()));
-            stmt.setInt(3,livros.getQauntidade());
+            stmt.setInt(3,livros.getQuantidade());
             stmt.setFloat(4,livros.getPreco());
-            stmt.setInt(5,livros.getEditora_id().getId());
+            stmt.setInt(5,livros.getEditora_id());
             // EXECUTAR
             stmt.execute();
 
