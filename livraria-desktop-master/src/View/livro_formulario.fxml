@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.LivroFormularioController">
+   <children>
+      <Pane prefHeight="94.0" prefWidth="1220.0">
+         <children>
+            <Label layoutX="504.0" layoutY="35.0" text="Cadastro de Livros">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <TableView fx:id="tableViewLivros" layoutX="197.0" layoutY="251.0" prefHeight="371.0" prefWidth="945.0">
+        <columns>
+          <TableColumn fx:id="colunaID" text="ID" />
+          <TableColumn fx:id="colunaTITULO" prefWidth="205.0" text="TITULO" />
+            <TableColumn fx:id="colunaDATA_LANCAMENTO" minWidth="0.0" prefWidth="203.0" text="DATA DE LANÇAMENTO" />
+            <TableColumn fx:id="colunaPRECO" prefWidth="107.0" text="PREÇO" />
+            <TableColumn fx:id="colunaEDITORA" prefWidth="191.0" text="EDITORA" />
+            <TableColumn fx:id="colunaQUANTIDADE" minWidth="0.0" prefWidth="158.0" text="QUANTIDADE" />
+        </columns>
+      </TableView>
+      <Button layoutX="1080.0" layoutY="667.0" mnemonicParsing="false" text="Deletar" />
+       <TextField fx:id="titulo02" layoutX="197.0" layoutY="117.0" prefHeight="26.0" prefWidth="217.0" promptText="Titulo" />
+      <DatePicker fx:id="data_lancamento" editable="false" layoutX="589.0" layoutY="117.0" prefHeight="26.0" prefWidth="225.0" promptText="Data de Lançamento" />
+      <TextField fx:id="quantidade" layoutX="961.0" layoutY="117.0" promptText="Quantidade" />
+      <TextField fx:id="txf_preco" layoutX="197.0" layoutY="162.0" promptText="Preço" />
+      <ComboBox fx:id="caixa_editora" layoutX="589.0" layoutY="155.0" prefWidth="150.0" promptText="Editora" />
+      <Button layoutX="961.0" layoutY="155.0" mnemonicParsing="false" onAction="#inserir_livro" prefHeight="26.0" prefWidth="171.0" text="Cadastrar Livro">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

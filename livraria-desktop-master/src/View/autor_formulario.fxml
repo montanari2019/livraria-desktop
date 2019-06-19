@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="694.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.AutorFormularioControler">
+   <children>
+      <Pane prefHeight="94.0" prefWidth="770.0">
+         <children>
+            <Label layoutX="270.0" layoutY="35.0" text="Cadastro de Autores">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="52.0" layoutY="124.0" text="Nome:" />
+      <TextField fx:id="txfNome" layoutX="110.0" layoutY="121.0" prefHeight="26.0" prefWidth="217.0" />
+      <Label layoutX="440.0" layoutY="125.0" text="Email:" />
+      <TextField fx:id="txfEmail" layoutX="500.0" layoutY="121.0" prefHeight="26.0" prefWidth="217.0" />
+      <Button fx:id="btn_Inserir_novo" layoutX="555.0" layoutY="162.0" mnemonicParsing="false" onAction="#inserir_novo_autor" prefHeight="26.0" prefWidth="162.0" text="Inserir Novo Autor">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      <TableView fx:id="tabelaView" layoutX="54.0" layoutY="204.0" prefHeight="388.0" prefWidth="663.0">
+        <columns>
+          <TableColumn fx:id="tabela_id" prefWidth="141.0" text="ID" />
+          <TableColumn fx:id="tabela_nome" minWidth="0.0" onEditCommit="#EDITI_NOME" prefWidth="261.0" text="NOME" />
+            <TableColumn fx:id="tabela_email" minWidth="0.0" onEditCommit="#EDITI_EMAIL" prefWidth="261.0" text="EMAIL" />
+        </columns>
+      </TableView>
+      <Button layoutX="665.0" layoutY="617.0" mnemonicParsing="false" onAction="#deletar" text="Deletar">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+   </children>
+</AnchorPane>
